@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все Пользователи</title>
+</head>
+<body>
+<div>
+    <table border="4" style="border-color: blue; border-radius: 7px;">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.getID()}">...</td>
+            <td th:utext="${user.getName()}">...</td>
+            <td th:utext="${user.getLastName()}">...</td>
+            <td th:utext="${user.getAge()}">...</td>
+            <td style="border: 0px">
+                <form th:action="@{/users/{id}/edit(id=${user.getID()})}" method="get">
+                    <input type="submit" value="Изменить">
+                </form>
+            </td>
+            <td style="border: 0px">
+                <form th:action="@{/users/{id}(id=${user.getID()})}" th:method="DELETE">
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td><input disabled name="ID" placeholder="ID" size="7" type="text"/></td>
+            <td><input name="name" placeholder="Имя" readonly size="10" type="text"/></td>
+            <td><input name="lastname" placeholder="Фамилия" readonly size="10" type="text"/></td>
+            <td><input maxlength="3" name="age" placeholder="Возраст" readonly size="5" type="text"/></td>
+            <td style="border: 0px">
+                <form>
+                    <button formaction="/users/new" formmethod="get" type="submit">Добавить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
